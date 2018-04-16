@@ -1,6 +1,6 @@
 const app = require('express')()
     , bodyParser = require('body-parser')
-    , PORT = process.env.PORT || 4141;
+    , PORT = process.env.PORT || 8082;
 
 const logs = require('./routes/logs.route.js');
 
