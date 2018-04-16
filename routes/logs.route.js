@@ -32,7 +32,11 @@ logs.get('/getLog', (req, res) => {
     const db = client.db('visitorLogs');
     db.collection('logs').find().toArray((err, docs) => {
       console.log('docs - > ', docs);
-      res.json(docs);
+      var invertedDoc = [];
+      docs.map((item) => {
+        invertedDoc.unshift(item);
+      });
+      res.json(invertedDoc);
     });
   });
 });
