@@ -3,7 +3,28 @@ const logs = require('express').Router()
 
 logs.post('/setLog', (req, res) => {
   console.log('req - > ', req.body);
-  res.send('OK');
+  var date = new Date();
+  var dateStr = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
+  var emailFull = req.body.email+'@'+req.body.emailProvider;
+
+  var obj = {
+    name: req.body.name,
+    email: emailFull,
+    date: dateStr,
+    feel: req.body.feel,
+    comment: req.body.comment
+  }
+  MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+    const db = client.db('visitorLogs');
+    db.collection('logs').insert(obj, (err, reply) => {
+      if (err) {
+        console.log('Error in saving - > ', err);
+      } else {
+        console.log('reply - > ', reply);
+        res.send('OK');
+      }
+    });
+  });
 });
 
 logs.get('/getLog', (req, res) => {
