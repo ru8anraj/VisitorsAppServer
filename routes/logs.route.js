@@ -9,6 +9,7 @@ logs.post('/setLog', (req, res) => {
 
   var obj = {
     name: req.body.name,
+    vertical: 'CBU-'+req.body.vertical,
     email: emailFull,
     date: dateStr,
     feel: req.body.feel,
