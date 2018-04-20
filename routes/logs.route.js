@@ -58,4 +58,14 @@ logs.get('/getLog', (req, res) => {
   });
 });
 
+logs.get('/getFeelCount', (req, res) => {
+  MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+    const db = client.db('visitorLogs');
+    db.collection('feelCount').find().toArray((err, docs) => {
+      console.log('feel docs - > ', docs);
+      res.json(docs);
+    });
+  });
+});
+
 module.exports = logs;
